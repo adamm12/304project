@@ -1,0 +1,44 @@
+package Classes;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+
+public class Main {
+
+	
+	public static void main(String[] args) throws SQLException {
+		// TODO Auto-generated method stub
+		DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1522:ug",  "ora_z5r8", "a34072124");
+		
+		// Sample SQL selection query
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM personnel");
+		
+		int id = 0;
+		String pname = "";
+		int phone = 0;
+		Date hireDate = null;
+		int airlineId = 0;
+		
+		while(rs.next()) {
+			id = rs.getInt(1);
+			pname = rs.getString(2);
+		    phone = rs.getInt(3);
+			hireDate = rs.getDate(4);
+			airlineId = rs.getInt(5);
+		}
+		
+		System.out.print("Personnel id is: " + id);
+		System.out.print("Personnel name is; " + pname);
+		System.out.print("Personnel phone# is: " + phone);
+		System.out.print("Hire date is; " + hireDate);
+		System.out.print("Airline Id is: " + airlineId);
+		rs.close();
+	}
+
+}
